@@ -1,0 +1,153 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Nutmeg Soccer Pinball — bright comic-cartoon design system.
+   Cream canvas, ink outlines, hard comic shadows, orange/lemon/red accents. */
+
+@layer base {
+  :root {
+    --background: 44 87% 94%;
+    --foreground: 0 0% 10%;
+
+    --card: 0 0% 100%;
+    --card-foreground: 0 0% 10%;
+
+    --popover: 0 0% 100%;
+    --popover-foreground: 0 0% 10%;
+
+    --primary: 25 100% 55%;
+    --primary-foreground: 0 0% 100%;
+
+    --secondary: 43 100% 62%;
+    --secondary-foreground: 0 0% 10%;
+
+    --muted: 44 40% 88%;
+    --muted-foreground: 41 12% 38%;
+
+    --accent: 131 37% 52%;
+    --accent-foreground: 0 0% 100%;
+
+    --destructive: 0 74% 56%;
+    --destructive-foreground: 0 0% 100%;
+
+    --border: 44 26% 80%;
+    --input: 44 26% 80%;
+    --ring: 25 100% 55%;
+
+    --radius: 1rem;
+
+    --sidebar-background: 0 0% 98%;
+    --sidebar-foreground: 240 5.3% 26.1%;
+    --sidebar-primary: 240 5.9% 10%;
+    --sidebar-primary-foreground: 0 0% 98%;
+    --sidebar-accent: 240 4.8% 95.9%;
+    --sidebar-accent-foreground: 240 5.9% 10%;
+    --sidebar-border: 220 13% 91%;
+    --sidebar-ring: 217.2 91.2% 59.8%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  html,
+  body,
+  #root {
+    height: 100%;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+    font-family: "Nunito", system-ui, -apple-system, sans-serif;
+    font-weight: 700;
+    background-image: radial-gradient(circle at 12% 8%, rgba(255, 201, 60, 0.22), transparent 42%),
+      radial-gradient(circle at 88% 12%, rgba(59, 167, 224, 0.16), transparent 38%);
+    background-attachment: fixed;
+    -webkit-tap-highlight-color: transparent;
+  }
+
+  :focus-visible {
+    outline: 3px solid #ff7a1a;
+    outline-offset: 3px;
+  }
+}
+
+@layer components {
+  .comic-panel {
+    @apply rounded-[20px] border-[3px] border-ink bg-white shadow-comic;
+  }
+
+  .comic-btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-2xl border-[3px] border-ink shadow-comic transition-all duration-150 active:translate-x-[3px] active:translate-y-[3px] active:shadow-comic-press disabled:cursor-not-allowed disabled:opacity-60;
+  }
+
+  .comic-text-shadow {
+    text-shadow: 3px 3px 0 #1a1a1a;
+  }
+
+  .comic-stroke {
+    -webkit-text-stroke: 3px #1a1a1a;
+    paint-order: stroke fill;
+  }
+}
+
+@layer utilities {
+  .no-touch-scroll {
+    touch-action: none;
+  }
+}
+
+/* Confetti burst on the goal celebration */
+@keyframes confetti-fall {
+  0% {
+    transform: translate3d(0, -18vh, 0) rotate(0deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: 1;
+  }
+  100% {
+    transform: translate3d(var(--drift, 0px), 112vh, 0) rotate(var(--spin, 720deg));
+    opacity: 1;
+  }
+}
+
+.confetti-piece {
+  position: absolute;
+  top: 0;
+  width: 12px;
+  height: 18px;
+  border: 2px solid #1a1a1a;
+  border-radius: 3px;
+  animation: confetti-fall linear forwards;
+}
+
+/* Fresca's landing pop after her chaotic blur rush */
+@keyframes fresca-land-pop {
+  0% {
+    transform: translate(-50%, -50%) scale(1.45);
+  }
+  55% {
+    transform: translate(-50%, -50%) scale(0.88) rotate(-5deg);
+  }
+  100% {
+    transform: translate(-50%, -50%) scale(1) rotate(0deg);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .confetti-piece {
+    display: none;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
